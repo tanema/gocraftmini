@@ -43,7 +43,14 @@ func (voxel *Voxel) draw(camera *Camera, px, py float32) {
 		cellSize = camera.getCellSize()
 	}
 
-	gfx.SetColor(HSLToRGB(voxel.h/360, voxel.s/100, pow(voxel.l, 1/voxel.shine)))
+	gfx.SetColorC(
+		gfx.NewHSLColor(
+			voxel.h/360,
+			voxel.s/100,
+			pow(voxel.l, 1/voxel.shine),
+			1,
+		),
+	)
 	x, y := camera.worldToScreen(px, py, voxel.z, voxel.relative)
 	width, height := voxel.width*cellSize, voxel.height*cellSize
 	coords := []float32{
